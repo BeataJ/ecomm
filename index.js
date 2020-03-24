@@ -26,6 +26,8 @@ const bodyParser = (req, res, next) => {
       }
       console.log(formData);
     });
+  } else {
+    next();
   }
 };
 
