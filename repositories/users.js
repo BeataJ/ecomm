@@ -21,6 +21,7 @@ class UsersRepository {
     });
 
     // Read its contents
+    console.log(contents);
 
     // parse the contents
 
@@ -28,4 +29,10 @@ class UsersRepository {
   }
 }
 
-new UsersRepository('users.json');
+const test = async () => {
+  const repo = new UsersRepository('users.json');
+
+  await repo.getAll();
+};
+
+test();
