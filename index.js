@@ -30,6 +30,7 @@ const bodyParser = (req, res, next) => {
 };
 
 app.post('/', (req, res) => {
+  console.log(req);
   res.send('Account created!!!');
 });
 
