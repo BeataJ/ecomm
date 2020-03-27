@@ -89,7 +89,7 @@ class UsersRepository {
 const test = async () => {
   const repo = new UsersRepository('users.json');
 
-  await repo.getOneBy({ password: 'mypassword' });
+  const user = await repo.getOneBy({ email: 'test@test.com' });
 
   // await repo.update('e27adbd7', { password: 'mypassword' });
 
@@ -101,7 +101,7 @@ const test = async () => {
 
   // const users = await repo.getAll();
 
-  // console.log(user);
+  console.log(user);
 };
 
 test();
