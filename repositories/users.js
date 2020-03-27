@@ -71,7 +71,9 @@ class UsersRepository {
 const test = async () => {
   const repo = new UsersRepository('users.json');
 
-  await repo.update('e27adbd7', { password: 'mypassword' });
+  await repo.getOneBy({ password: 'mypassword' });
+
+  // await repo.update('e27adbd7', { password: 'mypassword' });
 
   // const user = await repo.getOne('1bd3bf24');
 
