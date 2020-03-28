@@ -32,7 +32,7 @@ app.post('/', async (req, res) => {
   }
 
   // Create a user in our user repo
-  await userRepo.create({ email, password });
+  const user = await userRepo.create({ email, password });
 
   // Store the id of that user inside the users cookie
 
