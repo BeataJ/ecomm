@@ -12,7 +12,7 @@ app.use(
   })
 );
 
-app.get('/', (req, res) => {
+app.get('/signup', (req, res) => {
   res.send(`
     <div>
     Your id is: ${req.session.userId}
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
   `);
 });
 
-app.post('/', async (req, res) => {
+app.post('/signup', async (req, res) => {
   const { email, password, passwordConfirmation } = req.body;
 
   const existingUser = await userRepo.getOneBy({ email });
