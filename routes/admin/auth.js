@@ -1,4 +1,4 @@
-const usersRepo = require('../../repositories/users');
+const userRepo = require('../../repositories/users');
 
 app.get('/signup', (req, res) => {
   res.send(`
