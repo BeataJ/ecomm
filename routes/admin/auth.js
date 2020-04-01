@@ -1,6 +1,7 @@
 const express = require('express');
 const userRepo = require('../../repositories/users');
 const signupTemplate = require('../../views/admin/auth/signup');
+const signinTemplate = require('../../views/admin/auth/signin');
 
 const router = express.Router();
 
@@ -35,9 +36,7 @@ router.get('/signout', (req, res) => {
 });
 
 router.get('/signin', (req, res) => {
-  res.send(`
-    
-  `);
+  res.send(signinTemplate());
 });
 
 router.post('/signin', async (req, res) => {
