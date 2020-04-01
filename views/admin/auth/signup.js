@@ -1,6 +1,6 @@
 module.exports = ({ req }) => {
   return `
-  <DOCTYPE html>
+  <!DOCTYPE html>
   <html>
   <head></head>
   <body>
