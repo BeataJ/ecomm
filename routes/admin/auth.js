@@ -13,7 +13,14 @@ router.get('/signup', (req, res) => {
 
 router.post(
   '/signup',
-  [check('email'), check('password'), check('passwordConfirmation')],
+  [
+    check('email')
+      .trim()
+      .normalizeEmail()
+      .isEmail(),
+    check('password'),
+    check('passwordConfirmation')
+  ],
   async (req, res) => {
     const { email, password, passwordConfirmation } = req.body;
 
