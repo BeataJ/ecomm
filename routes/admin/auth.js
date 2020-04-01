@@ -1,5 +1,5 @@
 const express = require('express');
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 const userRepo = require('../../repositories/users');
 const signupTemplate = require('../../views/admin/auth/signup');
@@ -18,8 +18,12 @@ router.post(
       .trim()
       .normalizeEmail()
       .isEmail(),
-    check('password'),
+    check('password')
+      .trim()
+      .isLength({ min: 4, max: 20 }),
     check('passwordConfirmation')
+      .trim()
+      .isLength({ min: 4, max: 20 })
   ],
   async (req, res) => {
     const { email, password, passwordConfirmation } = req.body;
