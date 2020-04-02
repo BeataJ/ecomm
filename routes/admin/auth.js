@@ -4,7 +4,11 @@ const { check, validationResult } = require('express-validator');
 const userRepo = require('../../repositories/users');
 const signupTemplate = require('../../views/admin/auth/signup');
 const signinTemplate = require('../../views/admin/auth/signin');
-const { requireEmail } = require('./validators');
+const {
+  requireEmail,
+  requirePassword,
+  requirePasswordConfirmation
+} = require('./validators');
 
 const router = express.Router();
 
