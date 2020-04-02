@@ -30,21 +30,19 @@ router.post(
     check('passwordConfirmation')
       .trim()
       .isLength({ min: 4, max: 20 })
+      .custom((passwordConfirmation, { req }) => {
+        if (passwordConfirmation !== req.body.password) {
+          throw new Error('Passwords must match');
+        }
+      })
   ],
   async (req, res) => {
     const errors = validationResult(req);
     console.log(errors);
 
     const { email, password, passwordConfirmation } = req.body;
-
-    if (password !== passwordConfirmation) {
-      return res.send('Password must match');
-    }
-
-    // Create a user in our user repo
     const user = await userRepo.create({ email, password });
 
-    // Store the id of that user inside the users cookie
     req.session.userId = user.id;
 
     res.send('Account created!!!');
