@@ -60,13 +60,18 @@ router.post(
       }),
     check('password')
       .trim()
-      .custom(async (password) => {
+      .custom(async (password, { req }) => {
+        const user = await userRepo.getOneBy({ email: req.body.email });
+        if (!user) {
+          throw new Error('Invalid password');
+        }
+
         const validPassword = await userRepo.comparePasswords(
           user.password,
           password
         );
         if (!validPassword) {
-          return res.send('Invalid password');
+          throw new Error('Invalid password');
         }
       }),
   ],
@@ -74,13 +79,9 @@ router.post(
     const errors = validationResult(req);
     console.log(errors);
 
-    const { email, password } = req.body;
+    const { email } = req.body;
 
     const user = await userRepo.getOneBy({ email });
-
-    if (!user) {
-      return res.send('Email not found');
-    }
 
     req.session.userId = user.id;
 
