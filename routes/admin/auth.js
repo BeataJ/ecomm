@@ -28,7 +28,7 @@ router.post(
       return res.send(signupTemplate({ req, errors }));
     }
 
-    const { email, password, passwordConfirmation } = req.body;
+    const { email, password } = req.body;
     const user = await userRepo.create({
       email,
       password,
