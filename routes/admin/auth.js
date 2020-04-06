@@ -1,7 +1,7 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
 
-const userRepo = require('../../repositories/users');
+const usersRepo = require('../../repositories/users');
 const signupTemplate = require('../../views/admin/auth/signup');
 const signinTemplate = require('../../views/admin/auth/signin');
 const {
@@ -28,11 +28,8 @@ router.post(
       return res.send(signupTemplate({ req, errors }));
     }
 
-    const { email, password } = req.body;
-    const user = await userRepo.create({
-      email,
-      password,
-    });
+    const { email, password, passwordConfirmation } = req.body;
+    const user = await usersRepo.create({ email, password });
 
     req.session.userId = user.id;
 
@@ -42,7 +39,7 @@ router.post(
 
 router.get('/signout', (req, res) => {
   req.session = null;
-  res.send('You are login out');
+  res.send('You are logged out');
 });
 
 router.get('/signin', (req, res) => {
@@ -61,11 +58,11 @@ router.post(
 
     const { email } = req.body;
 
-    const user = await userRepo.getOneBy({ email });
+    const user = await usersRepo.getOneBy({ email });
 
     req.session.userId = user.id;
 
-    res.send('You are signed in!!');
+    res.send('You are signed in!!!');
   }
 );
 

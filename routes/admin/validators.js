@@ -1,5 +1,5 @@
 const { check } = require('express-validator');
-const userRepo = require('../../repositories/users');
+const usersRepo = require('../../repositories/users');
 
 module.exports = {
   requireEmail: check('email')
@@ -8,7 +8,7 @@ module.exports = {
     .isEmail()
     .withMessage('Must be a valid email')
     .custom(async (email) => {
-      const existingUser = await userRepo.getOneBy({ email });
+      const existingUser = await usersRepo.getOneBy({ email });
       if (existingUser) {
         throw new Error('Email in use');
       }
@@ -32,20 +32,20 @@ module.exports = {
     .isEmail()
     .withMessage('Must provide a valid email')
     .custom(async (email) => {
-      const user = await userRepo.getOneBy({ email });
+      const user = await usersRepo.getOneBy({ email });
       if (!user) {
-        throw new Error('Email not found');
+        throw new Error('Email not found!');
       }
     }),
   requireValidPasswordForUser: check('password')
     .trim()
     .custom(async (password, { req }) => {
-      const user = await userRepo.getOneBy({ email: req.body.email });
+      const user = await usersRepo.getOneBy({ email: req.body.email });
       if (!user) {
         throw new Error('Invalid password');
       }
 
-      const validPassword = await userRepo.comparePasswords(
+      const validPassword = await usersRepo.comparePasswords(
         user.password,
         password
       );
