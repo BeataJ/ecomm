@@ -8,6 +8,8 @@ const {
   requireEmail,
   requirePassword,
   requirePasswordConfirmation,
+  requireEmailExists,
+  requierValidPasswordForUsers,
 } = require('./validators');
 
 const router = express.Router();
@@ -46,35 +48,7 @@ router.get('/signin', (req, res) => {
 
 router.post(
   '/signin',
-  [
-    check('email')
-      .trim()
-      .normalizeEmail()
-      .isEmail()
-      .withMessage('Must provide a valid email')
-      .custom(async (email) => {
-        const user = await userRepo.getOneBy({ email });
-        if (!user) {
-          throw new Error('Email not found');
-        }
-      }),
-    check('password')
-      .trim()
-      .custom(async (password, { req }) => {
-        const user = await userRepo.getOneBy({ email: req.body.email });
-        if (!user) {
-          throw new Error('Invalid password');
-        }
-
-        const validPassword = await userRepo.comparePasswords(
-          user.password,
-          password
-        );
-        if (!validPassword) {
-          throw new Error('Invalid password');
-        }
-      }),
-  ],
+  [requireEmailExists, requierValidPasswordForUsers],
   async (req, res) => {
     const errors = validationResult(req);
     console.log(errors);
