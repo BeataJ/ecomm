@@ -9,7 +9,7 @@ const {
   requirePassword,
   requirePasswordConfirmation,
   requireEmailExists,
-  requierValidPasswordForUsers,
+  requireValidPasswordForUser,
 } = require('./validators');
 
 const router = express.Router();
@@ -29,7 +29,10 @@ router.post(
     }
 
     const { email, password, passwordConfirmation } = req.body;
-    const user = await userRepo.create({ email, password });
+    const user = await userRepo.create({
+      email,
+      password,
+    });
 
     req.session.userId = user.id;
 
@@ -48,7 +51,7 @@ router.get('/signin', (req, res) => {
 
 router.post(
   '/signin',
-  [requireEmailExists, requierValidPasswordForUsers],
+  [requireEmailExists, requireValidPasswordForUser],
   async (req, res) => {
     const errors = validationResult(req);
 
