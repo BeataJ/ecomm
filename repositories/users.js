@@ -5,6 +5,13 @@ const util = require('util');
 const scrypt = util.promisify(crypto.scrypt);
 
 class UsersRepository {
+  async comparePasswords(saved, supplied) {
+    const [hashed, salt] = saved.split('.');
+    const hashedSuppliedBuf = await scrypt(supplied, salt, 64);
+
+    return hashed === hashedSuppliedBuf.toString('hex');
+  }
+
   async create(attrs) {
     attrs.id = this.randomId();
 
