@@ -21,8 +21,8 @@ module.exports = {
     .trim()
     .isLength({ min: 4, max: 20 })
     .withMessage('Must be between 4 and 20 characters')
-    .custom((passwordConfirmation, { req }) => {
-      if (passwordConfirmation !== req.body.password) {
+    .custom(async (passwordConfirmation, { req }) => {
+      if (await (passwordConfirmation !== req.body.password)) {
         throw new Error('Passwords must match');
       }
     }),
