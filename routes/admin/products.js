@@ -23,11 +23,11 @@ router.post(
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.send(productsNewTemplate({}));
+      return res.send(productsNewTemplate({ errors }));
     }
 
     const image = req.file.buffer.toString('base64');
-    const { price, title } = req.body;
+    const { title, price } = req.body;
     await productsRepo.create({ title, price, image });
 
     res.send('submitted');
