@@ -22,6 +22,10 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
 
+    if (!errors.isEmpty()) {
+      return res.send(productsNewTemplate({}));
+    }
+
     const image = req.file.buffer.toString('base64');
     const { price, title } = req.body;
     await productsRepo.create({ title, price, image });
