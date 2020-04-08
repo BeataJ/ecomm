@@ -16,10 +16,10 @@ module.exports = class Repository {
   }
 
   async create(attrs) {
-    atters.id = this.randomId();
+    attrs.id = this.randomId();
 
     const records = await this.getOneBy();
-    records.push(attrs);
+    records.push(attr);
     await this.writeAll(records);
 
     return attrs;
