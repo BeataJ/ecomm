@@ -45,4 +45,6 @@ router.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
   res.send(productsEditTemplate({ product }));
 });
 
+router.post('/admin/products/:id/edit', requireAuth, (req, res) => {});
+
 module.exports = router;
