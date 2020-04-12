@@ -5,6 +5,7 @@ const { handleErrors, requireAuth } = require('./middlewares');
 const productsRepo = require('../../repositories/products');
 const productsNewTemplate = require('../../views/admin/products/new');
 const productsIndexTemplate = require('../../views/admin/products/index');
+const productsEditTemplate = require('../../views/admin/products/edit');
 const { requireTitle, requirePrice } = require('./validators');
 
 const router = express.Router();
