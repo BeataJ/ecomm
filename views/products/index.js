@@ -6,10 +6,9 @@ module.exports = ({ products }) => {
     `;
     })
     .join('');
-
   return `
       <ul>
-        ${renderedProducts};
+        ${renderedProducts}
       </ul>
     `;
 };
