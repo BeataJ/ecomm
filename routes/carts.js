@@ -28,4 +28,10 @@ router.post('/cart/products', async (req, res) => {
   res.send('Product added to cart');
 });
 
+router.get('cart', (req, res) => {
+  if (!req.session.cartId) {
+    return res.redirect('/');
+  }
+});
+
 module.exports = router;
