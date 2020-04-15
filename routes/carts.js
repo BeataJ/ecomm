@@ -27,7 +27,7 @@ router.post('/cart/products', async (req, res) => {
     items: cart.items,
   });
 
-  res.send('Product added to cart');
+  res.redirect('/cart');
 });
 
 router.get('/cart', async (req, res) => {
